@@ -1,0 +1,56 @@
+var roleAllyDefender = {
+
+    /** @param {Creep} creep **/
+    run: function(creep) {
+
+        if(creep.room.name != creep.memory.targetRoom)
+        {
+            creep.moveTo(new RoomPosition(2, 19, creep.memory.targetRoom));
+       //     creep.say("moving")
+        } 
+        else 
+        {
+       
+            if((creep.pos.x == 44 && creep.pos.y==24) ||
+                (creep.pos.x == 42 && creep.pos.y==11) ||
+               (creep.pos.x == 42 && creep.pos.y==10))
+            {
+             //   console.log("found")
+                creep.say("Defending",true)
+            }
+            else
+                {
+        
+                if((new RoomPosition(44, 24, creep.room.name).lookFor(LOOK_CREEPS)).length==0)
+                {
+                    creep.moveTo(44, 24) 
+        
+                }
+                else if((new RoomPosition(42, 10, creep.room.name).lookFor(LOOK_CREEPS)).length==0)
+                {
+                    creep.moveTo(42, 10) 
+              
+                }
+                else if((new RoomPosition(42, 11, creep.room.name).lookFor(LOOK_CREEPS)).length==0)
+                {
+                    creep.moveTo(42, 11) 
+              
+                }
+            }
+       
+        }   
+
+        var target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        
+        if(target) {
+            if(target.owner.username!='Daft-Freak')
+            {
+                if(creep.rangedAttack(target) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(target);
+                }
+            }
+        }
+	}
+};
+
+module.exports = roleAllyDefender;
